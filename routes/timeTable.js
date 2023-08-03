@@ -22,12 +22,12 @@ timetable
     Promise.all([timetable.getTimetable()]).then((result) => {
       // console.log(result);
 
-      app.get("/timetable", function (req, res) {
+      router.get("/timetable", function (req, res) {
         res.json(result[0]); // 수업시간정보 react로 보내기
       });
 
       // grade, class post로 받아옴
-      app.post("/viewtimetable", function (req, res) {
+      router.post("/viewtimetable", function (req, res) {
         const r_grade = req.body.grade;
         const r_class = req.body.class;
         console.log("grade : " + r_grade); // react에서 받은 grade출력
@@ -40,7 +40,7 @@ timetable
     // 시간표
     Promise.all([timetable.getClassTime()]).then((result) => {
       // console.log(result);
-      app.get("/schedule", function (req, res) {
+      router.get("/schedule", function (req, res) {
         res.json(result[0]); // 시간표 react로 보내기
       });
     });

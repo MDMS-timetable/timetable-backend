@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 
 const Timetable = require("comcigan-parser");
 const timetable = new Timetable();

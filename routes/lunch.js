@@ -8,22 +8,19 @@ router.get("/mealinfo", async (req, res) => {
       "https://open.neis.go.kr/hub/mealServiceDietInfo?Key=080d50080aa344b8ac686028b5e2a1e2&Type=json&ATPT_OFCDC_SC_CODE=C10&SD_SCHUL_CODE=7201023&MLSV_YMD=202305"
     );
     const rows = response.data.mealServiceDietInfo[1].row;
-    let mealsByDate = {};
+    let mealsByDate = [];
 
     rows.forEach((row) => {
-      const date = row.MLSV_FROM_YMD;
       const cleanedDDISH_NM = row.DDISH_NM
         .replace(/\([^()]*\)/g, '')
         .replace(/<br\/>/g, '')
         .replace(/\s{2,}/g, ' ')
         .trim();
-    
-      if (!mealsByDate[date]) {
-        mealsByDate[date] = [];
-      }
-      mealsByDate[date].push({
-        DDISH_NM: cleanedDDISH_NM,
-        CAL_INFO: row.CAL_INFO
+      
+      mealsByDate.push({
+        lunch: cleanedDDISH_NM,
+        calorie: row.CAL_INFO,
+        date: row.MLSV_FROM_YMD
       });
     });
     res.send(mealsByDate);
@@ -39,22 +36,19 @@ router.post("/mealinfo", async (req, res) => {
       `https://open.neis.go.kr/hub/mealServiceDietInfo?Key=080d50080aa344b8ac686028b5e2a1e2&Type=json&ATPT_OFCDC_SC_CODE=C10&SD_SCHUL_CODE=7201023&MLSV_YMD=${month}`
     );
     const rows = response.data.mealServiceDietInfo[1].row;
-    let mealsByDate = {};
+    let mealsByDate = [];
 
     rows.forEach((row) => {
-      const date = row.MLSV_FROM_YMD;
       const cleanedDDISH_NM = row.DDISH_NM
         .replace(/\([^()]*\)/g, '')
         .replace(/<br\/>/g, '')
         .replace(/\s{2,}/g, ' ')
         .trim();
-    
-      if (!mealsByDate[date]) {
-        mealsByDate[date] = [];
-      }
-      mealsByDate[date].push({
+      
+      mealsByDate.push({
         lunch: cleanedDDISH_NM,
-        calorie: row.CAL_INFO
+        calorie: row.CAL_INFO,
+        date: row.MLSV_FROM_YMD
       });
     });
     res.send(mealsByDate);

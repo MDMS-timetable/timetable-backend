@@ -9,10 +9,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 const timeTableRouter = require('./routes/timeTable');
-const lunchRouter = require('./routes/lunch');
+const lunchRouter = require('./routes/launch');
 
 app.use('/', timeTableRouter);
-app.use('/lunch', lunchRouter);
+app.use('/launch', lunchRouter);
 
 app.listen(port, () => {
   console.log(`node start! ${port}`);

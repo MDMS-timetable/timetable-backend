@@ -4,7 +4,7 @@
   "description": "MDMS timetable",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +12,7 @@
     "axios": "^1.4.0",
     "comcigan-parser": "^1.0.0",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
   }
 }

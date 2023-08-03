@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@my-school.info/neis-api": "^1.0.0",
     "axios": "^1.4.0",
     "comcigan-parser": "^1.0.0",
     "cors": "^2.8.5",

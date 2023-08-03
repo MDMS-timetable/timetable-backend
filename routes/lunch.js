@@ -57,7 +57,7 @@ router.post("/mealinfo", async (req, res) => {
         CAL_INFO: row.CAL_INFO
       });
     });
-    res.send(response.data);
+    res.send(mealsByDate);
   } catch (error) {
     res.status(500).json({ message: "Error fetching meal information" });
   }

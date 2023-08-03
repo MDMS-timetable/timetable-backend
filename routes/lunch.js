@@ -53,8 +53,8 @@ router.post("/mealinfo", async (req, res) => {
         mealsByDate[date] = [];
       }
       mealsByDate[date].push({
-        DDISH_NM: cleanedDDISH_NM,
-        CAL_INFO: row.CAL_INFO
+        lunch: cleanedDDISH_NM,
+        calorie: row.CAL_INFO
       });
     });
     res.send(mealsByDate);

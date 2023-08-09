@@ -1,21 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 
 const Timetable = require("comcigan-parser");
 const timetable = new Timetable();
 
-const schoolFinder = (schoolName, region) => (schoolList) => {
-  const targetSchool = schoolList.find((school) => {
-    return school.region === region && school.name.includes(schoolName);
-  });
-  return targetSchool;
-};
-
 timetable
-  .init({ cache: 1000 * 60 * 30 }) // 캐시 30분동안 보관
-  .then(() => timetable.search("만덕중학교"))
-  .then(schoolFinder("만덕중학교", "만덕"))
+  .init({ })
   .then((school) => timetable.setSchool(59955))
   .then(() => {
     // 수업시간정보

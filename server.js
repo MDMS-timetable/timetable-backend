@@ -21,10 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const timeTableRouter = require("./routes/timeTable");
 const lunchRouter = require("./routes/lunch");
-const kakaoRouter = require("./routes/kakao");
 
 app.use("/", timeTableRouter);
-app.use("/", kakaoRouter);
 app.use("/lunch", lunchRouter);
 
 app.listen(port, () => {

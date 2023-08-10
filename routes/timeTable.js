@@ -12,15 +12,13 @@ const schoolFinder = (schoolName, region) => (schoolList) => {
 };
 
 timetable
-  .init({ cache: 1000 * 60 * 30 }) // 캐시 30분동안 보관
+  .init({ cache: 1000 })
   .then(() => timetable.search("만덕중학교"))
   .then(schoolFinder("만덕중학교", "만덕"))
   .then((school) => timetable.setSchool(59955))
   .then(() => {
     // 수업시간정보
     Promise.all([timetable.getTimetable()]).then((result) => {
-      // console.log(result);
-
       router.get("/timetable", function (req, res) {
         res.json(result[0]); // 수업시간정보 react로 보내기
       });

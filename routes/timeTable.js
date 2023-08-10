@@ -19,8 +19,6 @@ timetable
   .then(() => {
     // 수업시간정보
     Promise.all([timetable.getTimetable()]).then((result) => {
-      // console.log(result);
-
       router.get("/timetable", function (req, res) {
         res.json(result[0]); // 수업시간정보 react로 보내기
       });

@@ -20,13 +20,18 @@ router.post("/mealinfo", async (req, res) => {
     
       const dateParts = row.MLSV_FROM_YMD.match(/(\d{4})(\d{2})(\d{2})/);
       
+      const formatWithLeadingZero = (number) => {
+        const strNumber = number.toString();
+        return strNumber.length === 1 ? '0' + strNumber : strNumber;
+      };
+    
       mealsByDate.push({
         lunch: cleanedDDISH_NM,
         calorie: row.CAL_INFO,
         date: {
           year: parseInt(dateParts[1]),
-          month: parseInt(dateParts[2]),
-          day: parseInt(dateParts[3])
+          month: formatWithLeadingZero(parseInt(dateParts[2])),
+          day: formatWithLeadingZero(parseInt(dateParts[3]))
         }
       });
     });

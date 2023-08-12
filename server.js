@@ -1,19 +1,21 @@
 const express = require("express");
 const cors = require("cors");
-const port = 3000;
-const app = express();
+const passport = require("passport");
+const dotenv = require("dotenv");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+dotenv.config();
 const { sequelize } = require("./models");
 const timeTableRouter = require("./routes/timeTable");
 const lunchRouter = require("./routes/lunch");
+const authRouter = require("./routes/auth");
+const pageRouter = require("./routes/page");
+const passportConfig = require("./passport");
 
-app.use("/", timeTableRouter);
-app.use("/lunch", lunchRouter);
-
+const app = express();
+passportConfig();
+app.set("port", process.env.PORT || 3000);
 sequelize
   .sync({ force: false })
   .then(() => {
@@ -23,6 +25,30 @@ sequelize
     console.error(err);
   });
 
-app.listen(port, () => {
-  console.log(`node start! ${port}`);
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use("/", timeTableRouter);
+app.use("/lunch", lunchRouter);
+app.use("/auth", authRouter);
+app.use("/", pageRouter);
+
+app.listen(app.get("port"), () => {
+  console.log(app.get("port"), "node start!");
 });

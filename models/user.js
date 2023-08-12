@@ -4,25 +4,31 @@ class User extends Sequelize.Model {
   static initiate(sequelize) {
     User.init(
       {
-        userId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
-        },
-        name: {
-          type: Sequelize.STRING(50),
-        },
-        password: {
-          type: Sequelize.STRING(255),
-        },
-        grade: {
-          type: Sequelize.INTEGER,
-        },
-        class: {
-          type: Sequelize.INTEGER,
-        },
         email: {
             type: Sequelize.STRING(50),
+          },
+          email: {
+            type: Sequelize.STRING(40),
+            allowNull: true,
+            unique: true,
+          },
+          name: {
+            type: Sequelize.STRING(15),
+            allowNull: false,
+          },
+          password: {
+            type: Sequelize.STRING(100),
+            allowNull: true,
+          },
+          snsId: {
+            type: Sequelize.STRING(30),
+            allowNull: true,
+          },
+          grade: {
+            type: Sequelize.INTEGER,
+          },
+          class: {
+            type: Sequelize.INTEGER,
           },
       },
       {

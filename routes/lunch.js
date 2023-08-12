@@ -17,11 +17,17 @@ router.post("/mealinfo", async (req, res) => {
         .replace(/<br\/>/g, '')
         .replace(/\s{2,}/g, ' ')
         .trim();
+    
+      const dateParts = row.MLSV_FROM_YMD.match(/(\d{4})(\d{2})(\d{2})/);
       
       mealsByDate.push({
         lunch: cleanedDDISH_NM,
         calorie: row.CAL_INFO,
-        date: row.MLSV_FROM_YMD
+        date: {
+          year: parseInt(dateParts[1]),
+          month: parseInt(dateParts[2]),
+          day: parseInt(dateParts[3])
+        }
       });
     });
     res.send(mealsByDate);

@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
-router.post("/mealinfo", async (req, res) => {
-  const date = req.body.date;
-  const start = req.body.start;
-  const end = req.body.end;
+router.get("/mealinfo", async (req, res) => {
+  const {date, start, end} = req.query;
   let response;
   if (date) {
     try {

@@ -44,7 +44,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use("/", timeTableRouter);
+app.use("/", timeTableRouter);
 app.use("/lunch", lunchRouter);
 app.use("/auth", authRouter);
 app.use("/", pageRouter);

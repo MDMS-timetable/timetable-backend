@@ -6,6 +6,9 @@ router.get("/mealinfo", async (req, res) => {
   const date = req.body.date;
   const start = req.body.start;
   const end = req.body.end;
+  console.log('date' + date);
+  console.log('start' + start);
+  console.log('end' + end);
   let response;
   if (date) {
     try {

@@ -3,9 +3,9 @@ const router = express.Router();
 const axios = require("axios");
 
 router.post("/mealinfo", async (req, res) => {
-  date = req.body.date;
-  start = req.body.start;
-  end = req.body.end;
+  const date = req.body.date;
+  const start = req.body.start;
+  const end = req.body.end;
   let response;
   if (date.length > 0) {
     try {

@@ -3,7 +3,9 @@ const router = express.Router();
 const axios = require("axios");
 
 router.get("/mealinfo", async (req, res) => {
-  const {date, start, end} = req.query;
+  const date = req.body.date;
+  const start = req.body.start;
+  const end = req.body.end;
   let response;
   if (date) {
     try {

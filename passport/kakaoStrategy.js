@@ -14,7 +14,7 @@ module.exports = () => {
         console.log("kakao profile", profile);
         try {
           const exUser = await User.findOne({
-            where: { snsId: profile.id },
+            where: { kakaoId: profile.id },
           });
           if (exUser) {
             done(null, exUser);
@@ -22,7 +22,7 @@ module.exports = () => {
             const newUser = await User.create({
               email: profile._json?.kakao_account?.email,
               name: profile.displayName,
-              snsId: profile.id,
+              kakaoId: profile.id,
             });
             done(null, newUser);
           }

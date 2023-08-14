@@ -25,21 +25,33 @@ router.post("/mealinfo", async (req, res) => {
     }
   }
   const rows = response.data.mealServiceDietInfo[1].row;
-  let mealsByDate = [];
+    let mealsByDate = [];
 
-  rows.forEach((row) => {
-    const cleanedDDISH_NM = row.DDISH_NM.replace(/\([^()]*\)/g, "")
-      .replace(/<br\/>/g, "")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-
-    mealsByDate.push({
-      lunch: cleanedDDISH_NM,
-      calorie: row.CAL_INFO,
-      date: row.MLSV_FROM_YMD,
+    rows.forEach((row) => {
+      const cleanedDDISH_NM = row.DDISH_NM
+        .replace(/\([^()]*\)/g, '')
+        .replace(/<br\/>/g, '')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+    
+      const dateParts = row.MLSV_FROM_YMD.match(/(\d{4})(\d{2})(\d{2})/);
+      
+      const formatWithLeadingZero = (number) => {
+        const strNumber = number.toString();
+        return strNumber.length === 1 ? '0' + strNumber : strNumber;
+      };
+    
+      mealsByDate.push({
+        lunch: cleanedDDISH_NM,
+        calorie: row.CAL_INFO,
+        date: {
+          year: parseInt(dateParts[1]),
+          month: formatWithLeadingZero(parseInt(dateParts[2])),
+          day: formatWithLeadingZero(parseInt(dateParts[3]))
+        }
+      });
     });
-  });
-  res.send(mealsByDate);
+    res.send(mealsByDate);
 });
 
 module.exports = router;

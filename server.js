@@ -11,6 +11,7 @@ const timeTableRouter = require("./routes/timeTable");
 const lunchRouter = require("./routes/lunch");
 const authRouter = require("./routes/auth");
 const pageRouter = require("./routes/page");
+const hitsRouter = require("./routes/hits");
 const passportConfig = require("./passport");
 
 const app = express();
@@ -48,6 +49,7 @@ app.use("/", timeTableRouter);
 app.use("/lunch", lunchRouter);
 app.use("/auth", authRouter);
 app.use("/", pageRouter);
+app.use("/hits", hitsRouter);
 
 app.listen(app.get("port"), () => {
   console.log(app.get("port"), "node start!");

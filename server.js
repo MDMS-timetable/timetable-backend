@@ -15,7 +15,7 @@ const passportConfig = require("./passport");
 
 const app = express();
 passportConfig();
-app.set("port", process.env.PORT || 8090);
+app.set("port", process.env.PORT || 3000);
 sequelize
   .sync({ force: false })
   .then(() => {

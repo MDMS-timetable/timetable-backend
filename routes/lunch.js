@@ -1,3 +1,5 @@
+require("dotenv").config();
+const env = process.env;
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
@@ -6,7 +8,7 @@ const { addDays, format } = require("date-fns");
 const baseURL = "https://open.neis.go.kr/hub";
 
 const baseParams = {
-  Key: "080d50080aa344b8ac686028b5e2a1e2",
+  Key: env.NEIS_KEY,
   Type: "json",
   ATPT_OFCDC_SC_CODE: "C10",
   SD_SCHUL_CODE: "7201023",

@@ -4,6 +4,7 @@ const passport = require("passport");
 const dotenv = require("dotenv");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const morgan = require('morgan');
 
 dotenv.config();
 const { sequelize } = require("./models");
@@ -26,6 +27,11 @@ sequelize
     console.error(err);
   });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined")); // 배포환경이면
+} else {
+  app.use(morgan("dev")); // 개발환경이면
+}
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

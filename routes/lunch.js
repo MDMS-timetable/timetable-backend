@@ -14,13 +14,26 @@ const baseParams = {
   SD_SCHUL_CODE: "7201023",
 };
 
+const isValidDate = (date) => {
+  return date instanceof Date && !isNaN(date);
+};
+
 const getFormatDate = (dateString) => {
   const date = new Date(dateString);
+  if (!isValidDate(date)) {
+    throw new Error("Invalid date value");
+  }
   return format(date, "yyyyMMdd");
 };
 
 router.get("/mealinfo", async (req, res) => {
   const { start, end } = req.query;
+
+  // 날짜 값 검증
+  if (!isValidDate(new Date(start)) || !isValidDate(new Date(end))) {
+    res.status(400).json({ message: "Invalid date values in the request" });
+    return;
+  }
 
   const params = new URLSearchParams({
     ...baseParams,
@@ -28,10 +41,7 @@ router.get("/mealinfo", async (req, res) => {
     MLSV_TO_YMD: getFormatDate(end),
   });
 
-  // console.log(params.toString());
-
   try {
-    // console.log(start, end);
     const response = await axios.get(
       `${baseURL}/mealServiceDietInfo?${params.toString()}`
     );
@@ -45,7 +55,6 @@ router.get("/mealinfo", async (req, res) => {
       date <= new Date(end);
       date = addDays(date, 1)
     ) {
-      console.log(date);
       const row = rows[0];
 
       const year = date.getFullYear(),
@@ -91,8 +100,6 @@ router.get("/mealinfo", async (req, res) => {
       });
       rows.shift();
     }
-
-    console.log(mealsByDate);
 
     res.send(mealsByDate);
   } catch (error) {

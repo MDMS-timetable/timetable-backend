@@ -43,4 +43,8 @@ timetable
     });
   });
 
+setInterval(() => {
+  delete require.cache[require.resolve("./timeTable")];
+}, 1000 * 60);
+
 module.exports = router;

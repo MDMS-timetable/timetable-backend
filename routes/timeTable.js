@@ -12,7 +12,7 @@ const schoolFinder = (schoolName, region) => (schoolList) => {
 };
 
 timetable
-  .init({ cache: 1000 })
+  .init({ cache: 0 })
   .then(() => timetable.search("만덕중학교"))
   .then(schoolFinder("만덕중학교", "만덕"))
   .then((school) => timetable.setSchool(59955))
